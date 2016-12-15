@@ -57,8 +57,10 @@ define([
 
       it('reports a size of 0 after removing more items than were added', function() {
         stack.push('a');
+        // debugger;
         stack.pop();
         stack.pop();
+        console.log(stack.size())
         expect(stack.size()).to.equal(0);
       });
 
