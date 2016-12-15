@@ -13,13 +13,20 @@ var Queue = function() {
 var queueMethods = {};
 
 queueMethods.enqueue = function(value) {
-
+  this.storage[this.count] = value;
+  this.count++;
 };
 
 queueMethods.dequeue = function() {
-
+  var deqVal = this.storage[this.deleteCount];
+  delete this.storage[this.deleteCount];
+  this.deleteCount++;
+  return deqVal;
 };
 
 queueMethods.size = function() {
-  return this.count;
+  if (this.deleteCount > this.count) {
+    return 0;
+  }
+  return this.count - this.deleteCount;
 };
