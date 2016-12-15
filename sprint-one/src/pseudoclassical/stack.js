@@ -7,10 +7,14 @@ var Stack = function() {
 
 Stack.prototype.push = function(value) {
   this.count++;
+  this.storage[this.count] = value;
 };
 
 Stack.prototype.pop = function() {
+  var popVal = this.storage[this.count];
+  delete this.storage[this.count];
   this.count--;
+  return popVal;
 };
 
 Stack.prototype.size = function() {
