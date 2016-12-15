@@ -4,20 +4,12 @@ var Stack = function() {
   var someInstance = {};
   someInstance.storage = {};
   someInstance.count = 0;
-  extend(someInstance, stackMethods);
-
+  _.extend(someInstance, stackMethods);
 
   return someInstance;
 };
 
 var stackMethods = {};
-
-var extend = function(to, from) {
-  for (var key in from) {
-    to[key] = from[key];
-  }
-};
-
 
 stackMethods.push = function(value) {
   // debugger;
@@ -25,6 +17,7 @@ stackMethods.push = function(value) {
   this.count++;
   // console.log('pushing size: ', size)
 };
+
 stackMethods.pop = function() {
 // console.log('popping size: ', size)
   this.count--;
@@ -32,7 +25,6 @@ stackMethods.pop = function() {
   delete this.storage[this.count];
   return popVal;
 };
-
 
 stackMethods.size = function() {
   if (this.count < 0) {
