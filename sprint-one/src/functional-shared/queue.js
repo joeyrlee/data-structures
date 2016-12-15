@@ -4,6 +4,7 @@ var Queue = function() {
   var someInstance = {};
   someInstance.storage = {};
   someInstance.count = 0;
+  someInstance.deleteCount = 0;
   _.extend(someInstance, queueMethods);
 
   return someInstance;
@@ -13,17 +14,24 @@ var queueMethods = {};
 
 //push
 queueMethods.enqueue = function(value) {
-
+  this.storage[this.count] = value;
+  this.count++;
 };
 
 //shift
 queueMethods.dequeue = function() {
-
+  var deqVal = this.storage[this.deleteCount];
+  delete this.storage[this.deleteCount];
+  this.deleteCount++;
+  return deqVal;
 };
 
 //length
 queueMethods.size = function() {
-  return this.count;
+  if (this.deleteCount > this.count) {
+    return 0;
+  }
+  return this.count - this.deleteCount;
 };
 
 
