@@ -17,6 +17,9 @@ stackMethods.push = function(value) {
 
 stackMethods.pop = function() {
   this.count--;
+  var poppedVal = this.storage[this.count];
+  delete this.storage[this.count];
+  return poppedVal;
 };
 
 stackMethods.size = function() {
