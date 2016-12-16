@@ -23,15 +23,23 @@ var LinkedList = function() {
 
   //head points to next node in LL
   list.removeHead = function() {
+    /* Test 4 */
+    // if (list.head.next) {
     var formerHead = list.head.value;
+    // console.log('formerHead: ', formerHead);
     list.head = list.head.next;
     list.count--;
     return formerHead;
   };
 
   //does stuff
+  //contains works for head only.
   list.contains = function(target) {
+    // debugger;
     var nodeSearch = function(node) {
+      // console.log('node: ', node);
+      // console.log('node value: ', node.value);
+      // console.log('target: ', target);
       if (node.value === target) {
         return true;
       }
@@ -41,6 +49,16 @@ var LinkedList = function() {
       return nodeSearch(node.next);
     };
     return nodeSearch(list.head);
+
+
+    // var currNodeVal = list.head.value;
+    // for (var i = 0; i < list.count; i++) {
+    //   if (list.head.value === target) {
+    //     return true;
+    //   }
+    //   currNodeVal = list.head.next.value;
+    // }
+    // return false;
   };
 
   return list;
