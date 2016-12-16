@@ -46,9 +46,10 @@ var LinkedList = function() {
       if (node.next === null) {
         return false;
       }
-      nodeSearch(node.next);
+      return nodeSearch(node.next);
     };
     return nodeSearch(list.head);
+
 
     // var currNodeVal = list.head.value;
     // for (var i = 0; i < list.count; i++) {
