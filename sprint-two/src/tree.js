@@ -38,4 +38,6 @@ treeMethods.contains = function(target) {
  * Complexity: What is the time complexity of the above functions?
  */
 
-//The time complexity for 
+//The time complexity for Tree() is O(1)
+//The time compexity for addChild() is O(1)
+//The time complexity for contains is O(n)
