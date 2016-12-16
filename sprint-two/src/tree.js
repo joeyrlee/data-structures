@@ -18,17 +18,18 @@ treeMethods.addChild = function(value) {
 };
 
 treeMethods.contains = function(target) {
+  var result = false;
   var searchTree = function(node) {
     if (node.value === target) {
-      return true;
-    } else if (node.children.length > 0) {
-      for (var i = 0; i < node.children.length; i++) {
-        return searchTree(node.children[i]);
-      }
+      result = true;
     }
-    return false;
+    for (var i = 0; i < node.children.length; i++) {
+      searchTree(node.children[i]);
+    }
   };
-  return searchTree(this);
+  searchTree(this);
+
+  return result;
 };
 
 
