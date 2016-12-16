@@ -35,6 +35,29 @@ var LinkedList = function() {
   //does stuff
   //contains works for head only.
   list.contains = function(target) {
+    function nodeSearch(node) {
+      if (node.value === target) {
+        return true;
+      }
+
+      if (node.tail = null) {
+        return;
+      }
+      search(node.value);
+    }
+    nodeSearch(list.head)
+
+
+
+
+
+
+
+
+
+
+
+
     var currNodeVal = list.head.value;
     for (var i = 0; i < list.count; i++) {
       if (list.head.value === target) {
