@@ -26,7 +26,7 @@ var LinkedList = function() {
     /* Test 4 */
     // if (list.head.next) {
     var formerHead = list.head.value;
-    console.log('formerHead: ', formerHead);
+    // console.log('formerHead: ', formerHead);
     list.head = list.head.next;
     list.count--;
     return formerHead;
@@ -35,37 +35,29 @@ var LinkedList = function() {
   //does stuff
   //contains works for head only.
   list.contains = function(target) {
-    function nodeSearch(node) {
+    // debugger;
+    var nodeSearch = function(node) {
+      console.log('node: ', node);
+      console.log('node value: ', node.value);
+      console.log('target: ', target);
       if (node.value === target) {
         return true;
       }
-
-      if (node.tail = null) {
-        return;
+      if (node.next === null) {
+        return false;
       }
-      search(node.value);
-    }
-    nodeSearch(list.head)
+      nodeSearch(node.next);
+    };
+    return nodeSearch(list.head);
 
-
-
-
-
-
-
-
-
-
-
-
-    var currNodeVal = list.head.value;
-    for (var i = 0; i < list.count; i++) {
-      if (list.head.value === target) {
-        return true;
-      }
-      currNodeVal = list.head.next.value;
-    }
-    return false;
+    // var currNodeVal = list.head.value;
+    // for (var i = 0; i < list.count; i++) {
+    //   if (list.head.value === target) {
+    //     return true;
+    //   }
+    //   currNodeVal = list.head.next.value;
+    // }
+    // return false;
   };
 
   return list;
