@@ -23,23 +23,15 @@ var LinkedList = function() {
 
   //head points to next node in LL
   list.removeHead = function() {
-    /* Test 4 */
-    // if (list.head.next) {
     var formerHead = list.head.value;
-    // console.log('formerHead: ', formerHead);
     list.head = list.head.next;
     list.count--;
     return formerHead;
   };
 
   //does stuff
-  //contains works for head only.
   list.contains = function(target) {
-    // debugger;
     var nodeSearch = function(node) {
-      console.log('node: ', node);
-      console.log('node value: ', node.value);
-      console.log('target: ', target);
       if (node.value === target) {
         return true;
       }
@@ -49,16 +41,6 @@ var LinkedList = function() {
       return nodeSearch(node.next);
     };
     return nodeSearch(list.head);
-
-
-    // var currNodeVal = list.head.value;
-    // for (var i = 0; i < list.count; i++) {
-    //   if (list.head.value === target) {
-    //     return true;
-    //   }
-    //   currNodeVal = list.head.next.value;
-    // }
-    // return false;
   };
 
   return list;
@@ -77,7 +59,6 @@ var Node = function(value) {
  * Complexity: What is the time complexity of the above functions?
  */
 
-
-//idea:
-//1. on first node instance, head AND tail point to node
-//2. only on second node instance, does head point to node
+//The time complexity for addToTail() is O(1)
+//The time complexity for removeHead() is O(1)
+//The time complexity for contains() is O(n)
