@@ -38,7 +38,6 @@ Graph.prototype.removeNode = function(value) {
     //1. delete toNode's value from the edges array for fromNode
     //2. delete fromNode's value in the edges array for toNode
 
-
   var index;
   for (var i = 0; i < this.storage.length; i++) {
     if (value === this.storage[i].value) {
@@ -47,31 +46,35 @@ Graph.prototype.removeNode = function(value) {
   }
 
   var savedData = this.storage.splice(index, 1); //returns {val:5, edges:[1,2,23]}
-  console.log('del value: ', savedData);
-
-  _.each(savedData.edges, function(edge) {
-    // _.filter(this.storage, function(node) {
-    //   return node.edges !== edge;
-    // });
-    //find the index for nodes with `value` in their edges array
-    var nodeIndex = this.findNodeIndex(edge); 
-    //find the index for `value` in the node's edges array
-    var edgeIndex = this.storage[nodeIndex].edges.indexOf(value);
-    //splice `value` out of node's edges array
-    this.storage[nodeIndex].edges.splice(edgeIndex, 1);
-  });
-
-
-
+  // console.log('del value: ', savedData);
+  console.log('value: ', value)
+  // _.each(savedData[0].edges, function(edge) {
+  //edgeArray = [edge1,edge2,edge3]
+    _.each(this.storage, function(node) {
+      console.log('node: ', node)
+      if (node.edges.indexOf(value) !== -1)
+        node.edges.splice(node.edges.indexOf(value), 1)
+    });
+  // });
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
-  var fromIndex = this.findNodeIndex(fromNode);
-  var toIndex = this.findNodeIndex(toNode);
+  // var fromIndex = this.findNodeIndex(fromNode);
+  // var toIndex = this.findNodeIndex(toNode);
 
-  return this.storage[fromIndex].edges.includes(toNode) && 
-         this.storage[toIndex].edges.includes(fromNode);
+  // return (this.storage[fromIndex].edges.includes(toNode)) &&
+  //        (this.storage[toIndex].edges.includes(fromNode));
+
+  //this.storage = [{val:1,e:[]}, {val:1,e:[]}, {val:1,e:[]}]
+  var index;
+  _.each(this.storage, function(node, i) {
+    if (node.value === fromNode) {
+      index = i;
+    }
+  });
+
+  return this.storage[index].edges.includes(toNode);
 };
 
 // Connects two nodes in a graph by adding an edge between them.
@@ -81,6 +84,11 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 
   this.storage[fromIndex].edges.push(toNode);
   this.storage[toIndex].edges.push(fromNode);
+
+  // this.storage.indexOf(this.storage.value.fromNode).edges.push(toNode);
+  // this.storage.indexOf(this.storage.value.toNode).edges.push(fromNode);
+
+
 };
 
 // Remove an edge between any two specified (by value) nodes.
@@ -93,7 +101,10 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 };
 
 // Pass in a callback which will be executed on each node of the graph.
-Graph.prototype.forEachNode = function(cb) {
+Graph.prototype.forEachNode = function(callBack) {
+  _.each(this.storage, function(node) {
+    callBack(node.value);
+  })
 };
 
 /*
