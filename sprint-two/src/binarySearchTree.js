@@ -4,9 +4,9 @@ var BinarySearchTree = function(value) {
 
   someInstance.tree = {};
 
-  someInstance.value = value;
-  someInstance.left = null;
-  someInstance.right = null;
+  someInstance.tree.value = value;
+  someInstance.tree.left = {};
+  someInstance.tree.right = {};
   return someInstance;
 
 };
@@ -14,6 +14,7 @@ var BinarySearchTree = function(value) {
 var methods = {};
 
 methods.left = function(nodeVal) {
+  return nodeVal.left
   // body...
 };
 
@@ -22,21 +23,27 @@ methods.right = function(nodeVal) {
 };
 
 methods.insert = function(nodeVal) {
+  var nodeObj = {value: nodeVal, left: {}, right: {}};
   //recursive series of L/R evaluations to determine position
-  if (nodeVal < this.tree.value) {
-    this.tree.left = nodeVal;
-  }
-  // var searchTree = function(node) {
-  //   if (node.value === null) {
-  //     node.value = nodeVal;
-  //   }
-  //   // if (nodeVal < node.value) {
-  //   //   // searchTree(node.left);
-  //   // } if (nodeVal > node.value) {
-  //   //   // searchTree(node.right);
-  //   // } 
-  // };
-  // return searchTree(someInstance)
+  var searchTree = function(node) {
+    console.log(node)
+    if (node.value === null) {
+      node = nodeObj;
+
+    }
+    if (nodeVal < this.tree.value) {
+      this.tree.left = nodeObj;
+      nodeObj.right = this.tree.left;
+      searchTree(this.tree.left);
+    }
+    if (nodeVal > this.tree.value) {
+      this.tree.right = nodeObj;
+      nodeObj.left = this.tree.right;
+      searchTree(this.tree.right);
+    }
+  };
+  return searchTree(this.tree);
+
 };
 
 methods.contains = function(nodeVal) {
