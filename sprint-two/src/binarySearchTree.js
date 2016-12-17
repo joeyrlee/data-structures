@@ -37,7 +37,6 @@ methods.insert = function(nodeVal) {
 };
 
 methods.contains = function(target) {
-  //recursive series of L/R evaluations to determine position
   var result = false;
   var searchTree = function(node) {
     //checks left node only when null
@@ -63,7 +62,23 @@ methods.contains = function(target) {
 };
 
 methods.depthFirstLog = function(callBack) {
-  // body...
+  var searchTree = function(node) {
+    //starting at top of tree, execute CB on node.value
+    callBack(node.value);
+
+    var children = [];
+    if (node.right !== null) {
+      children.push(node.right);
+    }
+    if (node.left !== null) {
+      children.push(node.left);
+    }
+    //for all children, execute callback as well as recurse
+    for (var i = 0; i < children.length; i++) {
+      searchTree(children[i]);
+    }
+  };
+  searchTree(this);
 };
 
 
