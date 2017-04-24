@@ -32,6 +32,15 @@ treeMethods.contains = function(target) {
   return result;
 };
 
+treeMethods.traverse = function(callback) {
+  callback(this.value);
+
+  if (!this.children) { return; }
+  for (var i = 0; i < this.children.length; i++) {
+    var child = this.children[i];
+    child.traverse(callback);
+  }
+};
 
 
 /*
