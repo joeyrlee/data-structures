@@ -2,64 +2,48 @@ var LinkedList = function() {
   var list = {};
   list.head = null;
   list.tail = null;
-  list.count = 0;
 
-  //append a new node with the passed-in value to the tail
   list.addToTail = function(value) {
-    //head & tail scenarios:
-    //1. head & tail = null
-    if (list.head === null && list.tail === null) {
-      list.tail = Node(value);
-      list.head = list.tail;
-    } else {
-    //2. head & tail point to same
-      list.tail = Node(value);
-      //assign next
-      list.head.next = list.tail;
+
+    var newTail = Node(value);
+
+    if (!list.head) {
+      list.head = newTail;
     }
 
-    list.count++;
-  };
+    if (list.tail) {
+      list.tail.next = newTail;
+    }
 
-  //head points to next node in LL
+    list.tail = newTail;
+    };
+
   list.removeHead = function() {
-    /* Test 4 */
-    // if (list.head.next) {
-    var formerHead = list.head.value;
-    // console.log('formerHead: ', formerHead);
-    list.head = list.head.next;
-    list.count--;
-    return formerHead;
-  };
 
-  //does stuff
-  //contains works for head only.
+    if (list.head === null) {
+      return null;
+    }
+
+    var currentHead = list.head;
+    list.head = list.head.next;
+
+    return currentHead.value;
+      };
+
   list.contains = function(target) {
-    // debugger;
-    var nodeSearch = function(node) {
-      // console.log('node: ', node);
-      // console.log('node value: ', node.value);
-      // console.log('target: ', target);
+
+    var node = list.head;
+
+    while (node) {
       if (node.value === target) {
         return true;
       }
-      if (node.next === null) {
-        return false;
-      }
-      return nodeSearch(node.next);
-    };
-    return nodeSearch(list.head);
 
+      node = node.next;
+    }
 
-    // var currNodeVal = list.head.value;
-    // for (var i = 0; i < list.count; i++) {
-    //   if (list.head.value === target) {
-    //     return true;
-    //   }
-    //   currNodeVal = list.head.next.value;
-    // }
-    // return false;
-  };
+    return false;
+      };
 
   return list;
 };
