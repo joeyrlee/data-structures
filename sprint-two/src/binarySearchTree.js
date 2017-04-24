@@ -1,91 +1,48 @@
 var BinarySearchTree = function(value) {
-  var someInstance = {};
-  _.extend(someInstance, methods);
 
-  // someInstance.tree = {};
-
-  someInstance.value = value;
-  someInstance.left = null;
-  someInstance.right = null;
-  return someInstance;
-
-};
-
-var methods = {};
-
-methods.insert = function(nodeVal) {
-  //recursive series of L/R evaluations to determine position
-  var searchTree = function(node) {
-    //make a node variable with properties of a tree
-    var nodeObj = {value: nodeVal, left: null, right: null};
-    //checks left node only when null
-    if (nodeVal < node.value && node.left === null) {
-      node.left = nodeObj;
-    //checks right node only when null
-    } else if (nodeVal > node.value && node.right === null) {
-      node.right = nodeObj;
-    //restart search from left node
-    } else if (nodeVal < node.value && node.left !== null) {
-      searchTree(node.left);
-    //restart search from right node
-    } else if (nodeVal > node.value && node.right !== null) {
-      searchTree(node.right);
-    }
+  var binaryTree = Object.create(binaryTreePrototype);
+  binaryTree.value = value;
+  binaryTree.left = null;
+  binaryTree.right = null;
+  return binaryTree;
   };
-  searchTree(this);
 
+var binaryTreePrototype = {};
+
+binaryTreePrototype.insert = function(val) {
+  if (val < this.value) {
+    if (this.left === null) {
+      this.left = BinarySearchTree(val);
+    } else {
+      this.left.insert(val);
+    }
+  } else if (val > this.value) {
+    if (this.right === null) {
+      this.right = BinarySearchTree(val);
+    } else {
+      this.right.insert(val);
+    }
+  } else {
+    // do nothing: The tree already contains this value
+  }
 };
 
-methods.contains = function(target) {
-  var result = false;
-  var searchTree = function(node) {
-    //checks left node only when null
-    if (target === node.value) {
-      result = true;
-    } else if (node.right !== null || node.left !== null) {
-      var children = [];
-      if (node.right !== null) {
-        children.push(node.right);
-      }
-      if (node.left !== null) {
-        children.push(node.left);
-      }
-      //for each child node, return the results of searchTree(child)
-      for (var i = 0; i < children.length; i++) {
-        searchTree(children[i]);
-      }
-    }
-    return result;
-  };
-  return searchTree(this);
-  
+binaryTreePrototype.contains = function(val) {
+  if (val === this.value) {
+    return true;
+  } else if (val < this.value) {
+    return !!(this.left && this.left.contains(val));
+  } else if (val > this.value) {
+    return !!(this.right && this.right.contains(val));
+  }
 };
 
-methods.depthFirstLog = function(callBack) {
-  var searchTree = function(node) {
-    //starting at top of tree, execute CB on node.value
-    callBack(node.value);
-
-    var children = [];
-    if (node.right !== null) {
-      children.push(node.right);
-    }
-    if (node.left !== null) {
-      children.push(node.left);
-    }
-    //for all children, execute callback as well as recurse
-    for (var i = 0; i < children.length; i++) {
-      searchTree(children[i]);
-    }
-  };
-  searchTree(this);
+binaryTreePrototype.depthFirstLog = function(callBack) {
+  callBack(this.value);
+  if (this.left) {
+    this.left.depthFirstLog(callBack);
+  }
+  if (this.right) {
+    this.right.depthFirstLog(callBack);
+  }
 };
-
-
-/*
- * Complexity: What is the time complexity of the above functions?
- */
-
- //insert = O(log(n))
- //contains = O(log(n))
- //depthFirstLog = O(n)
